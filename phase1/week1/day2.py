@@ -72,7 +72,15 @@ def tokenize(text):
         if key not in vocab:
             vocab[key] = len(vocab)
         encoded.append(vocab[key])
-    return encoded
+
+    decoded_dict = {id1: word for word, id1 in vocab.items()}
+    decoded_list = [decoded_dict[id1] for id1 in encoded]
+
+    return {
+        "vocab": vocab,
+        "encoded": encoded,
+        "decoded": decoded_list
+    }
 
 
 # print(list_operations())
