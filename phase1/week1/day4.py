@@ -42,7 +42,7 @@ class Dataset:
 
     def split(self, ratio=0.8):
         cut = int(len(self.samples) * ratio)
-        train = Dataset(self.samples[:cut], self.labels[cut:])
+        train = Dataset(self.samples[:cut], self.labels[:cut])
         test = Dataset(self.samples[cut:], self.labels[cut:])
 
         return train, test
