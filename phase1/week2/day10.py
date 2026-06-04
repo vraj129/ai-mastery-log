@@ -4,6 +4,8 @@ Phase 1 · Week 2 · Wed Jun 3, 2026 (IST)
 Goal: write code that SURVIVES bad input instead of crashing.
 """
 
+import pytest
+
 
 # =====================================================================
 # BLOCK 1 — ERROR HANDLING
@@ -66,7 +68,7 @@ def write_lines(path, lines):
 def read_file(path):
     try:
         with open(path, "r") as f:
-            return  f.read()
+            return f.read()
     except FileNotFoundError:
         print(f"file not found: {path}")
         return None
@@ -93,10 +95,10 @@ if __name__ == "__main__":
 
     # --- Block 2 ---  (uncomment each line as you implement the function)
     write_lines("animals.txt", ["cat", "dog", "bird"])
-    print(read_file("animals.txt"))   # exists -> prints the 3 animals
-    print(read_file("ghost.txt"))     # missing -> handled gracefully, returns None
+    print(read_file("animals.txt"))  # exists -> prints the 3 animals
+    print(read_file("ghost.txt"))  # missing -> handled gracefully, returns None
     append_line("animals.txt", "fish")
-    print(read_file("animals.txt"))   # "fish" should now be on the end
+    print(read_file("animals.txt"))  # "fish" should now be on the end
 
 # ---------------------------------------------------------------------
 # 📺 FREE VIDEO REFERENCES (Day 10)

@@ -1,0 +1,11 @@
+import pytest
+import day4
+
+
+def test_dataset():
+    data = day4.Dataset(
+        ["image1", "image2", "image3", "image4", "image5", "image6", "image7", "image8", "image9", "image10"],
+        ["cat", "cat", "cat", "cat", "cat", "dogs", "dogs", "dogs", "dogs", "dogs"])
+    train, test = data.split(0.8, seed=3)
+    assert "cat" in test.labels
+    assert "dogs" in test.labels

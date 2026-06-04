@@ -1,6 +1,6 @@
 # 🗺️ AI Mastery Roadmap — State File (v2)
 
-> Last updated: June 3, 2026
+> Last updated: June 4, 2026
 > This file is the single source of truth for roadmap progress.
 > Update this after every session. Paste into new Claude accounts to resume.
 > **v2 redesign (Jun 3, 2026):** rebalanced to a TRUE ~16-month critical path, deploy-from-Phase-1 reliability spine, gentler gamification. Past progress is untouched — only the path forward changed.
@@ -21,16 +21,16 @@
 
 | Field | Value |
 |-------|-------|
-| **Current Day** | 11 |
+| **Current Day** | 12 |
 | **Rank** | E |
-| **XP** | 280 |
+| **XP** | 320 |
 | **Phase** | 1 |
-| **Today** | Day 11 — Harden your own code (fix day4 crash, add split shuffle, first pytest) |
-| **This week's sub-goal** | Make day4.py run + first green pytest on safe_int/checked_sqrt → 🥈 Red-Green |
-| **Streak** | 1 (Day 10 done — rebuild underway) |
+| **Today** | Day 12 — Finish hardening: `safe_divide`/`safe_int` raise-not-print (+ regression tests) + Hypothesis order-independence test for `Dataset.split` |
+| **This week's sub-goal** | ✅ DONE — day4 runs, first green pytest (🥉 Green Check), `Dataset.split` leakage caught test-first then fixed (🥈 Red-Green) |
+| **Streak** | 2 (Day 10 ✅, Day 11 ✅) |
 | **Streak-Freeze tokens** | 2 available (refill 1/month) |
 | **Start Date** | May 25, 2026 |
-| **Next trophy in sight** | 🥉 Clean Tree (½ done — `.gitignore` ✅, uv lockfile pending) |
+| **Next trophy in sight** | 🥉 Clean Tree (½ — `.gitignore` ✅, uv lockfile pending when NumPy lands) |
 
 > Surface to yourself only the **next trophy + this week's sub-goal**. Phase-week ranges below are for planning, not your daily view (you think in days).
 
@@ -50,7 +50,8 @@
 | Day 8 | Modules & imports (math_utils, standard library) | ✅ Done |
 | Day 9 | SKIPPED (Tue Jun 2 IST) — −25 XP applied (a Streak-Freeze token would now absorb this) | ⚠️ Skipped |
 | Day 10 | Error handling + File I/O | ✅ Done (Wed Jun 3 IST) |
-| Day 11 | **Harden your own code** (fix day4 crash + split-shuffle + import-time exec; first pytest) | 🔄 Next (Thu Jun 4 IST) |
+| Day 11 | **Harden your own code** (fixed day4 crash + dead `name` param + `__main__` guard; seeded shuffle on `Dataset.split`; first pytest) | ✅ Done (Thu Jun 4 IST) |
+| Day 12 | Finish hardening: `safe_divide`/`safe_int` raise-not-print (+ regression tests) + Hypothesis order-independence test for `Dataset.split` | 🔄 Next (Fri Jun 5 IST) |
 
 ---
 
@@ -73,6 +74,9 @@
 - Functions (def, return, *args, **kwargs, scope, closures)
 - Modules (import, from/import, `__name__`, standard library)
 - Error handling (try/except, custom exceptions) + File I/O (open/read/write/append, `with`)
+- **Testing (Day 11):** pytest basics (`test_*` auto-discovery, plain `assert`), `pytest.raises` for the failure path, import-safety prerequisite (`__main__` guard), reading a failure report as evidence
+- **Debugging-from-evidence (Day 11):** reproduced a real bug with a FAILING test FIRST, then fixed it (`Dataset.split` leakage)
+- **Data/test concepts (Day 11):** train/test leakage from an unshuffled sorted split; seeded shuffle for reproducibility; *flaky test* = a pass that depends on luck (caught via seed-scan)
 - **Reliability spine (started Day 11):** `.gitignore` ✅
 
 ---
@@ -182,7 +186,8 @@ Every phase is engineered so Flutter plugs in with **zero rework**, gated behind
 | Days 1–8 completed | +270 | 270 |
 | Day 9 skipped | −25 | 245 |
 | Day 10 completed (coding day) | +35 | 280 |
-| **Current Total** | | **280** |
+| Day 11 completed (hardening + first tests; 🥉 Green Check + 🥈 Red-Green) | +40 | 320 |
+| **Current Total** | | **320** |
 
 > **New XP philosophy (v2):** DONE = shipped + tested + deployed + baseline-beaten *out-earns* watching courses. Finishing a tutorial pays little; shipping a deployed, tested, baseline-beating artifact pays a lot. (Past XP is left as-is — no retroactive churn.)
 
@@ -203,7 +208,7 @@ HERE
 > Permanent once popped. Already-earned trophies carry over untouched. 🥉 Bronze · 🥈 Silver · 🥇 Gold · 🏆 PLATINUM = elite AI engineer + the job.
 > **Retired:** ~~🥉 Mathematician~~ (pure-math days removed).
 
-**Earned so far: 9** ( + 🥉 Clean Tree ½ done)
+**Earned so far: 11** ( + 🥉 Clean Tree ½ done)
 
 ### Phase 1 — Python · reliability spine · data
 - [x] 🥉 **Hello, Python** — Day 1
@@ -215,8 +220,8 @@ HERE
 - [x] 🥉 **Graceful Under Pressure** — first custom exception (Day 10)
 - [x] 🥉 **Persistent** — read & write your first file (Day 10)
 - [ ] 🥉 **Clean Tree** — `.gitignore` ✅ + green `uv` lockfile ⏳ (½ — lockfile pending)
-- [ ] 🥉 **Green Check** — first passing pytest test (on safe_int/checked_sqrt)
-- [ ] 🥈 **Red-Green** — failing test reproducing a real bug (Dataset.split leakage), then fix
+- [x] 🥉 **Green Check** — first passing pytest test (on `checked_sqrt`) — Day 11
+- [x] 🥈 **Red-Green** — failing test reproduced `Dataset.split` leakage, then fixed it (seeded shuffle) — Day 11
 - [ ] 🥉/🥈 **Bug Bounty** *(repeatable)* — a bug closed only after a regression test reproduces it first
 - [ ] 🥉/🥈 **Baseline Beaten** *(repeatable)* — each time a project beats its documented numeric baseline
 - [ ] 🥉 **Vectorized** — first NumPy broadcast replacing a Python loop
@@ -306,4 +311,4 @@ HERE
 
 Paste this entire file + the full system prompt into your first message, then say:
 
-> "I am resuming my AI roadmap. All context is above. Start Day 11."
+> "I am resuming my AI roadmap. All context is above. Start Day 12."
