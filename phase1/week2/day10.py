@@ -12,25 +12,15 @@ import pytest
 # =====================================================================
 
 # --- Exercise 1.1: safe_divide -------------------------------------
-# Return a / b. If b == 0, catch ZeroDivisionError, print a message,
-# and return None (instead of crashing).
+# Return a / b. If b == 0, the pytest will catch in the unit test
 def safe_divide(a, b):
-    try:
-        return a / b
-    except ZeroDivisionError:
-        print("b cannot be zero")
-        return None
+    return a / b
 
 
 # --- Exercise 1.2: safe_int ----------------------------------------
-# Return int(s). If s is not a valid integer, catch ValueError and
-# return None. Test it with "42" (works) and "hello" (fails).
+# Return int(s). If s is not a valid integer pytest will catch it in the testing
 def safe_int(s):
-    try:
-        return int(s)
-    except ValueError:
-        print(f"'{s}' is not a valid integer")
-        return None
+    return int(s)
 
 
 # --- Exercise 1.3: custom exception --------------------------------
