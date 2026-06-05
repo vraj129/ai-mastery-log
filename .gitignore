@@ -20,3 +20,7 @@ Thumbs.db
 # ---- Generated exercise scratch files ----
 # Output files created by running the day exercises (not source)
 phase1/week2/animals.txt
+
+# ---- Private coaching memory (NEVER commit — personal notes) ----
+# Synced privately to other devices via OneDrive, not GitHub. See .coach-memory/RESTORE-README.md
+.coach-memory/
