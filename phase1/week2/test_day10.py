@@ -10,10 +10,22 @@ def test_sqrt():
         checked_sqrt(-10)
 
 
-def test_divide():
-    assert safe_divide(4, 2) == 2.0
-    with pytest.raises(ZeroDivisionError):
-        safe_divide(4, 0)
+@pytest.mark.parametrize("a,b,c", [
+    (4, 2, 2.0),
+    (2, 2, 1.0),
+    (-2, 2, -1.0),
+
+])
+def test_divide(a, b, c):
+    assert safe_divide(a, b) == c
+
+
+@pytest.mark.parametrize("a,b,exception", [
+    (2, 0, ZeroDivisionError)
+])
+def test_divide_by_zero(a, b, exception):
+    with pytest.raises(exception):
+        safe_divide(a, b)
 
 
 def test_int():
