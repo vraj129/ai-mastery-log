@@ -14,7 +14,6 @@ def test_sqrt():
     (4, 2, 2.0),
     (2, 2, 1.0),
     (-2, 2, -1.0),
-
 ])
 def test_divide(a, b, c):
     assert safe_divide(a, b) == c
