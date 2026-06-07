@@ -1,6 +1,6 @@
 # 🗺️ AI Mastery Roadmap — State File (v2)
 
-> Last updated: June 6, 2026
+> Last updated: June 7, 2026
 > This file is the single source of truth for roadmap progress.
 > Update this after every session. Paste into new Claude accounts to resume.
 > **v2 redesign (Jun 3, 2026):** rebalanced to a TRUE ~16-month critical path, deploy-from-Phase-1 reliability spine, gentler gamification. Past progress is untouched — only the path forward changed.
@@ -21,13 +21,13 @@
 
 | Field | Value |
 |-------|-------|
-| **Current Day** | 14 |
+| **Current Day** | 15 |
 | **Rank** | E |
 | **XP** | 360 |
 | **Phase** | 1 |
-| **Today** | Day 14 — Sunday (Jun 7 IST): OFF — reflection + 1 paper + 1 post + check-in. (Day 15 Mon = NumPy first-contact 🎯) |
+| **Today** | Day 15 — Monday (Jun 8 IST): NumPy first-contact 🎯 — 3B1B vectors → arrays → first vectorized op (🥉 Vectorized) + uv/pyproject lockfile (🥉 Clean Tree). (Sun Jun 7 = TRUE rest day ✅ done — new policy.) |
 | **This week's sub-goal** | 🔜 First contact with NumPy (Day 15): replace a Python loop with ONE vectorized op (🥉 Vectorized) + set up uv/pyproject lockfile (pops 🥉 Clean Tree). Testing-as-design thread = ✅ closed (parametrize + first fixture). |
-| **Streak** | 4 (Day 10 ✅, Day 11 ✅, Day 12 ✅, Day 13 ✅) |
+| **Streak** | 4 (Day 10–13 ✅) — protected across the Sun Jun 7 rest day (Sundays are neutral: never break it, never pad it); resumes climbing Day 15 |
 | **Streak-Freeze tokens** | 2 available (refill 1/month) |
 | **Start Date** | May 25, 2026 |
 | **Next trophy in sight** | 🥉 Vectorized + 🥉 Clean Tree — both reachable Day 15 (Mon) when NumPy + the uv lockfile land |
@@ -53,7 +53,7 @@
 | Day 11 | **Harden your own code** (fixed day4 crash + dead `name` param + `__main__` guard; seeded shuffle on `Dataset.split`; first pytest) | ✅ Done (Thu Jun 4 IST) |
 | Day 12 | Finish hardening: `safe_divide`/`safe_int` **raise** (dead try/except removed) + regression tests (`test_divide`/`test_int`) + first **Hypothesis property test** (`test_split_conserves`, conservation law) | ✅ Done (Fri Jun 5 IST) |
 | Day 13 | Testing as design: parametrized `safe_divide` (happy-path rows) + own `pytest.raises` test for ZeroDivisionError + **first fixture** (`data_set` builds & injects a `Dataset`) | ✅ Done (Sat Jun 6 IST) |
-| Day 14 | Sunday — reflection, 1 paper, 1 post, check-in | 🔄 Next (Sun Jun 7 IST) |
+| Day 14 | **Sunday — TRUE rest day** (policy change: Sundays are now zero-task. Pre-NumPy pulse done: energy 7.5; concepts solid; real gap = syntax-recall fluency → fix with typing reps + syntax Anki) | ✅ Rest (Sun Jun 7 IST) |
 | Day 15 | NumPy first-contact: 3B1B vectors → arrays → first vectorized op (🥉 Vectorized) + uv/pyproject lockfile (🥉 Clean Tree) | ⏳ Planned (Mon Jun 8 IST) |
 
 ---
@@ -196,6 +196,7 @@ Every phase is engineered so Flutter plugs in with **zero rework**, gated behind
 | Day 11 completed (hardening + first tests; 🥉 Green Check + 🥈 Red-Green) | +40 | 320 |
 | Day 12 completed (finish hardening + first property-based test; 🥉 Property Prover) | +40 | 360 |
 | Day 13 completed (testing as design: parametrize + first fixture; no new trophy) | +30 | 390 |
+| Day 14 — true rest day (new Sunday policy; not a skip, no penalty) | +0 | 390 |
 | **Current Total** | | **390** |
 
 > **New XP philosophy (v2):** DONE = shipped + tested + deployed + baseline-beaten *out-earns* watching courses. Finishing a tutorial pays little; shipping a deployed, tested, baseline-beating artifact pays a lot. (Past XP is left as-is — no retroactive churn.)
@@ -291,7 +292,7 @@ HERE
 ## 📌 Key Rules
 
 - **2 hours per day HARD STOP.** (Gentle boundary — no countdown-timer pressure.)
-- **Sunday = off** (reflection, 1 paper, 1 post, Sunday check-in).
+- **Sunday = TRUE rest day — MANDATORY, zero tasks.** No reading, no post, no check-in. Rest is infrastructure for a ~16-month plan, not a deviation; resting on Sunday = following the plan. A planned Sunday rest is NEUTRAL for the streak (never breaks it, never pads it) and costs **no XP** — it is NOT a skip. (Full-time job + Sat learning + daily weekday learning = Sunday must be real rest or the engine seizes.)
 - **Skipping a day = −25 XP** (the missed topic folds into the next consolidation/buffer week — the day is NOT re-numbered) — UNLESS you spend a **Streak-Freeze token** (absorbs the miss: XP unaffected, streak preserved, day rolls forward). 2 tokens, refill 1/month. *Tip: a token could have absorbed the Day 9 skip.*
 - ~~2 consecutive skips = −100 XP + week restart~~ **(DELETED — quit-trigger, not a motivator.)**
 - **Consolidation/buffer week every ~6 weeks** (re-deploy + refactor + Anki, no new concepts; counts for streak; pops 🥈 Craftsman).
@@ -307,7 +308,8 @@ HERE
 - **Math:** code-embedded, just-in-time, no pure-math days. **DSA:** ~1 problem/week, interview hygiene only.
 - **One new infra tool per milestone**, with a +50% first-time buffer.
 - **Park It:** stuck 15 min → write the question, move on. 30-min fallback plan every day.
-- **Anki:** 1 card per concept, review on phone. **Active recall:** last 5 min, write 3 things from memory.
+- **Anki:** 1 card per concept, review on phone — favor *syntax* cards (front = the task in plain words, back = the one-liner he writes himself) to close the syntax-recall gap. **Active recall:** last 5 min of each LEARNING day (Mon–Sat, never Sunday), write 3 things from memory.
+- **Learn-in-public post = SHIP-DRIVEN, not weekly.** Write a short post only when you ship something worth it (a trophy/milestone), on a Saturday — never a forced Sunday chore. Target ~1–2/month.
 
 ---
 
@@ -321,4 +323,4 @@ HERE
 
 Paste this entire file + the full system prompt into your first message, then say:
 
-> "I am resuming my AI roadmap. All context is above. Start Day 14."
+> "I am resuming my AI roadmap. All context is above. Start Day 15."
