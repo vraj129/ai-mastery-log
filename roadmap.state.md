@@ -1,6 +1,6 @@
 # 🗺️ AI Mastery Roadmap — State File (v2)
 
-> Last updated: June 7, 2026
+> Last updated: June 8, 2026
 > This file is the single source of truth for roadmap progress.
 > Update this after every session. Paste into new Claude accounts to resume.
 > **v2 redesign (Jun 3, 2026):** rebalanced to a TRUE ~16-month critical path, deploy-from-Phase-1 reliability spine, gentler gamification. Past progress is untouched — only the path forward changed.
@@ -21,16 +21,16 @@
 
 | Field | Value |
 |-------|-------|
-| **Current Day** | 15 |
+| **Current Day** | 16 |
 | **Rank** | E |
-| **XP** | 360 |
+| **XP** | 430 |
 | **Phase** | 1 |
-| **Today** | Day 15 — Monday (Jun 8 IST): NumPy first-contact 🎯 — 3B1B vectors → arrays → first vectorized op (🥉 Vectorized) + uv/pyproject lockfile (🥉 Clean Tree). (Sun Jun 7 = TRUE rest day ✅ done — new policy.) |
-| **This week's sub-goal** | 🔜 First contact with NumPy (Day 15): replace a Python loop with ONE vectorized op (🥉 Vectorized) + set up uv/pyproject lockfile (pops 🥉 Clean Tree). Testing-as-design thread = ✅ closed (parametrize + first fixture). |
-| **Streak** | 4 (Day 10–13 ✅) — protected across the Sun Jun 7 rest day (Sundays are neutral: never break it, never pad it); resumes climbing Day 15 |
+| **Today** | Day 16 — Tuesday (Jun 9 IST): plan at session start (web-search news first). Deepen NumPy (broadcasting + more whole-array ops) heading toward 🥉 Gradient (3B1B → hand-rolled gradient descent on one weight). Day 15 ✅ done — vectorized ReLU `np.maximum(0,c)` 167× over a Python loop (🥉 Vectorized) + green uv lockfile (🥉 Clean Tree). |
+| **This week's sub-goal** | ✅ NumPy first-contact landed (Day 15): vectorized ReLU replaced a Python loop, 167× (🥉 Vectorized) + green uv lockfile (🥉 Clean Tree). 🔜 Next: deepen NumPy (broadcasting) → hand-roll gradient descent on a single weight (🥉 Gradient, resource: 3B1B). |
+| **Streak** | 5 (Day 10–13 ✅ + Day 15 ✅; Sun Jun 7 / Day 14 = neutral rest) — climbing again after the rest day |
 | **Streak-Freeze tokens** | 2 available (refill 1/month) |
 | **Start Date** | May 25, 2026 |
-| **Next trophy in sight** | 🥉 Vectorized + 🥉 Clean Tree — both reachable Day 15 (Mon) when NumPy + the uv lockfile land |
+| **Next trophy in sight** | 🥉 Gradient — hand-rolled gradient descent on a single weight (resource: 3B1B). 🥉 Vectorized + 🥉 Clean Tree ✅ earned Day 15. |
 
 > Surface to yourself only the **next trophy + this week's sub-goal**. Phase-week ranges below are for planning, not your daily view (you think in days).
 
@@ -54,7 +54,7 @@
 | Day 12 | Finish hardening: `safe_divide`/`safe_int` **raise** (dead try/except removed) + regression tests (`test_divide`/`test_int`) + first **Hypothesis property test** (`test_split_conserves`, conservation law) | ✅ Done (Fri Jun 5 IST) |
 | Day 13 | Testing as design: parametrized `safe_divide` (happy-path rows) + own `pytest.raises` test for ZeroDivisionError + **first fixture** (`data_set` builds & injects a `Dataset`) | ✅ Done (Sat Jun 6 IST) |
 | Day 14 | **Sunday — TRUE rest day** (policy change: Sundays are now zero-task. Pre-NumPy pulse done: energy 7.5; concepts solid; real gap = syntax-recall fluency → fix with typing reps + syntax Anki) | ✅ Rest (Sun Jun 7 IST) |
-| Day 15 | NumPy first-contact: 3B1B vectors → arrays → first vectorized op (🥉 Vectorized) + uv/pyproject lockfile (🥉 Clean Tree) | ⏳ Planned (Mon Jun 8 IST) |
+| Day 15 | **NumPy first-contact**: 3B1B vectors (ch.1) → `ndarray` from a list → vectorized ReLU `np.maximum(0, c)` replacing a Python loop (**167× faster**, documented baseline) + first **uv lockfile** (`pyproject.toml` + `uv.lock`, numpy 2.4.6). Self-debugged a timestamp-vs-duration timing bug. 🥉 Vectorized + 🥉 Clean Tree | ✅ Done (Mon Jun 8 IST) |
 
 ---
 
@@ -84,6 +84,7 @@
 - **Error design (Day 12):** *raise, don't swallow* — printing/returning `None` on error hides failures and lies to the caller; **"raise low, catch high"** (small helpers report; the boundary — API/CLI — handles). Deleted dead catch-and-reraise in `safe_divide`/`safe_int`.
 - **Property-based testing (Day 12):** Hypothesis (`@given` + strategies, e.g. `st.lists(st.integers())`) — assert a *law* true for ALL inputs, not hand-picked examples; **shrinking** boils a failure down to its minimal repro (caught a deliberate `split` bug, shrank to `[0]`). Multiset compare via `sorted(a) == sorted(b)`.
 - **Tooling/debugging (Day 12):** PyCharm was running pytest tests with the **unittest** runner → fixed (Default test runner = pytest + delete stale run config). A reproduce→hypothesize→fix tooling rep.
+- **NumPy first-contact (Day 15):** an `ndarray` = a vector / list of numbers you operate on **all at once**; **vectorization** = one whole-array op instead of a Python loop (element-wise `+`, `*`, and **broadcasting** a scalar against every element). `np.maximum(0, arr)` = ReLU over a whole layer (the *real* activation, vs the Day-4 scalar `max(0, x)`); contrast `np.maximum` (element-wise) vs `np.max` (reduces to one value). Measured the payoff — Python loop **167×** slower than the vectorized call via a `time.perf_counter()` sandwich, and learned **a timestamp is absolute — subtract start/end for elapsed, never divide**. **Tooling:** `uv` (≈ Flutter `pub`): `uv init --bare` → `uv add numpy` → committed `pyproject.toml` + `uv.lock`; pointed PyCharm's interpreter at the uv `.venv`.
 - **Testing as design (Day 13):** `@pytest.mark.parametrize` — feed a *table* of input rows; one test body runs once per row and each row is its **own named test** (`test_divide[4-2-2.0]`), so a failure points at the exact input (self-locating). Design rule **one test = one question** — happy-path return-checks and a `pytest.raises` failure-path check live in *separate* tests, not crammed into one. **Fixtures** = dependency injection for tests (≈ Flutter `get_it`/`Provider`): a `@pytest.fixture` *builds* the object and the test **requests it by parameter name**; pytest injects it; default function scope = a fresh instance per test. The tell of a real fixture: setup (the data) moves INTO the fixture and the test body shrinks to pure intent.
 
 ---
@@ -197,7 +198,8 @@ Every phase is engineered so Flutter plugs in with **zero rework**, gated behind
 | Day 12 completed (finish hardening + first property-based test; 🥉 Property Prover) | +40 | 360 |
 | Day 13 completed (testing as design: parametrize + first fixture; no new trophy) | +30 | 390 |
 | Day 14 — true rest day (new Sunday policy; not a skip, no penalty) | +0 | 390 |
-| **Current Total** | | **390** |
+| Day 15 completed (NumPy first-contact: vectorized ReLU 167× over a loop + first uv lockfile; 🥉 Vectorized + 🥉 Clean Tree) | +40 | 430 |
+| **Current Total** | | **430** |
 
 > **New XP philosophy (v2):** DONE = shipped + tested + deployed + baseline-beaten *out-earns* watching courses. Finishing a tutorial pays little; shipping a deployed, tested, baseline-beating artifact pays a lot. (Past XP is left as-is — no retroactive churn.)
 
@@ -218,7 +220,7 @@ HERE
 > Permanent once popped. Already-earned trophies carry over untouched. 🥉 Bronze · 🥈 Silver · 🥇 Gold · 🏆 PLATINUM = elite AI engineer + the job.
 > **Retired:** ~~🥉 Mathematician~~ (pure-math days removed).
 
-**Earned so far: 12** ( + 🥉 Clean Tree ½ done)
+**Earned so far: 14**
 
 ### Phase 1 — Python · reliability spine · data
 - [x] 🥉 **Hello, Python** — Day 1
@@ -229,13 +231,13 @@ HERE
 - [x] 🥉 **Modular** — first reusable module (Day 8)
 - [x] 🥉 **Graceful Under Pressure** — first custom exception (Day 10)
 - [x] 🥉 **Persistent** — read & write your first file (Day 10)
-- [ ] 🥉 **Clean Tree** — `.gitignore` ✅ + green `uv` lockfile ⏳ (½ — lockfile pending)
+- [x] 🥉 **Clean Tree** — `.gitignore` ✅ + green `uv` lockfile ✅ (`pyproject.toml` + `uv.lock`, numpy 2.4.6) — Day 15
 - [x] 🥉 **Green Check** — first passing pytest test (on `checked_sqrt`) — Day 11
 - [x] 🥈 **Red-Green** — failing test reproduced `Dataset.split` leakage, then fixed it (seeded shuffle) — Day 11
 - [x] 🥉 **Property Prover** — first Hypothesis property-based test (`test_split_conserves` — a conservation law over `Dataset.split`, verified by watching it shrink a planted bug to `[0]`) — Day 12
 - [ ] 🥉/🥈 **Bug Bounty** *(repeatable)* — a bug closed only after a regression test reproduces it first
 - [ ] 🥉/🥈 **Baseline Beaten** *(repeatable)* — each time a project beats its documented numeric baseline
-- [ ] 🥉 **Vectorized** — first NumPy broadcast replacing a Python loop
+- [x] 🥉 **Vectorized** — `np.maximum(0, c)` replaced a Python ReLU loop, **167× faster** (documented baseline) — Day 15
 - [ ] 🥉 **Gradient** — hand-rolled gradient descent on a single weight (resource: 3B1B)
 - [ ] 🥉 **First Model** — NumPy logistic regression beats the majority-class baseline (resource: StatQuest)
 - [ ] 🥉 **From Raw** — 3 micro-pops: First Merge/Join · Killed the NaNs · Leak-Free Split
@@ -323,4 +325,4 @@ HERE
 
 Paste this entire file + the full system prompt into your first message, then say:
 
-> "I am resuming my AI roadmap. All context is above. Start Day 15."
+> "I am resuming my AI roadmap. All context is above. Start Day 16."

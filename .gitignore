@@ -12,6 +12,7 @@ ENV/
 # ---- IDE / editors ----
 .idea/
 .vscode/
+.claude/
 
 # ---- OS junk ----
 .DS_Store
