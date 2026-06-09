@@ -1,6 +1,6 @@
 # 🗺️ AI Mastery Roadmap — State File (v2)
 
-> Last updated: June 8, 2026
+> Last updated: June 9, 2026
 > This file is the single source of truth for roadmap progress.
 > Update this after every session. Paste into new Claude accounts to resume.
 > **v2 redesign (Jun 3, 2026):** rebalanced to a TRUE ~16-month critical path, deploy-from-Phase-1 reliability spine, gentler gamification. Past progress is untouched — only the path forward changed.
@@ -21,16 +21,16 @@
 
 | Field | Value |
 |-------|-------|
-| **Current Day** | 16 |
+| **Current Day** | 17 |
 | **Rank** | E |
-| **XP** | 430 |
+| **XP** | 460 |
 | **Phase** | 1 |
-| **Today** | Day 16 — Tuesday (Jun 9 IST): plan at session start (web-search news first). Deepen NumPy (broadcasting + more whole-array ops) heading toward 🥉 Gradient (3B1B → hand-rolled gradient descent on one weight). Day 15 ✅ done — vectorized ReLU `np.maximum(0,c)` 167× over a Python loop (🥉 Vectorized) + green uv lockfile (🥉 Clean Tree). |
-| **This week's sub-goal** | ✅ NumPy first-contact landed (Day 15): vectorized ReLU replaced a Python loop, 167× (🥉 Vectorized) + green uv lockfile (🥉 Clean Tree). 🔜 Next: deepen NumPy (broadcasting) → hand-roll gradient descent on a single weight (🥉 Gradient, resource: 3B1B). |
-| **Streak** | 5 (Day 10–13 ✅ + Day 15 ✅; Sun Jun 7 / Day 14 = neutral rest) — climbing again after the rest day |
+| **Today** | Day 17 — Wednesday (Jun 10 IST): plan at session start (web-search news first). **Build the single-weight gradient-descent loop → 🥉 Gradient** (predict → MSE → slope `dL/dw` → step `w` OPPOSITE the slope by `learning_rate` → repeat; watch the loss shrink). Day 16 ✅ done — vectorized MSE loss via reductions (`errors ** 2` → `.mean()` = 19.75, no loop) + gradient intuition (3B1B ch.2). **Reinforce tomorrow:** recall showed *slope* + *local-vs-global minimum* understood, but the **update step** (`w = w − lr × slope`, move OPPOSITE the slope) still fuzzy — building that loop IS the fix. |
+| **This week's sub-goal** | ✅ NumPy first-contact (Day 15) + ✅ vectorized MSE loss via reductions (Day 16). 🔜 Next (Day 17): hand-roll the single-weight gradient-descent loop on top of today's MSE → watch the loss shrink → 🥉 Gradient (resource: 3B1B ch.2). |
+| **Streak** | 6 (Day 10–13 ✅ + Day 15–16 ✅; Sun Jun 7 / Day 14 = neutral rest) — climbing steadily |
 | **Streak-Freeze tokens** | 2 available (refill 1/month) |
 | **Start Date** | May 25, 2026 |
-| **Next trophy in sight** | 🥉 Gradient — hand-rolled gradient descent on a single weight (resource: 3B1B). 🥉 Vectorized + 🥉 Clean Tree ✅ earned Day 15. |
+| **Next trophy in sight** | 🥉 Gradient — **imminent (Day 17 build)**: hand-rolled gradient descent on a single weight (resource: 3B1B ch.2). 🥉 Vectorized + 🥉 Clean Tree ✅ earned Day 15. |
 
 > Surface to yourself only the **next trophy + this week's sub-goal**. Phase-week ranges below are for planning, not your daily view (you think in days).
 
@@ -55,6 +55,7 @@
 | Day 13 | Testing as design: parametrized `safe_divide` (happy-path rows) + own `pytest.raises` test for ZeroDivisionError + **first fixture** (`data_set` builds & injects a `Dataset`) | ✅ Done (Sat Jun 6 IST) |
 | Day 14 | **Sunday — TRUE rest day** (policy change: Sundays are now zero-task. Pre-NumPy pulse done: energy 7.5; concepts solid; real gap = syntax-recall fluency → fix with typing reps + syntax Anki) | ✅ Rest (Sun Jun 7 IST) |
 | Day 15 | **NumPy first-contact**: 3B1B vectors (ch.1) → `ndarray` from a list → vectorized ReLU `np.maximum(0, c)` replacing a Python loop (**167× faster**, documented baseline) + first **uv lockfile** (`pyproject.toml` + `uv.lock`, numpy 2.4.6). Self-debugged a timestamp-vs-duration timing bug. 🥉 Vectorized + 🥉 Clean Tree | ✅ Done (Mon Jun 8 IST) |
+| Day 16 | **NumPy reductions → vectorized MSE loss**: `errors ** 2` (scalar-broadcast) → `.mean()` collapses the whole error array to one number (19.75), zero loops; cleaned a redundant `np.array()` re-wrap (NumPy op in → `ndarray` out). + **gradient-descent intuition** (3B1B ch.2: blindfolded-hiker / cost surface; slope = `dL/dw`, step opposite it; caught local-vs-global minima). No new trophy — sets up 🥉 Gradient (Day 17). | ✅ Done (Tue Jun 9 IST) |
 
 ---
 
@@ -86,6 +87,7 @@
 - **Tooling/debugging (Day 12):** PyCharm was running pytest tests with the **unittest** runner → fixed (Default test runner = pytest + delete stale run config). A reproduce→hypothesize→fix tooling rep.
 - **NumPy first-contact (Day 15):** an `ndarray` = a vector / list of numbers you operate on **all at once**; **vectorization** = one whole-array op instead of a Python loop (element-wise `+`, `*`, and **broadcasting** a scalar against every element). `np.maximum(0, arr)` = ReLU over a whole layer (the *real* activation, vs the Day-4 scalar `max(0, x)`); contrast `np.maximum` (element-wise) vs `np.max` (reduces to one value). Measured the payoff — Python loop **167×** slower than the vectorized call via a `time.perf_counter()` sandwich, and learned **a timestamp is absolute — subtract start/end for elapsed, never divide**. **Tooling:** `uv` (≈ Flutter `pub`): `uv init --bare` → `uv add numpy` → committed `pyproject.toml` + `uv.lock`; pointed PyCharm's interpreter at the uv `.venv`.
 - **Testing as design (Day 13):** `@pytest.mark.parametrize` — feed a *table* of input rows; one test body runs once per row and each row is its **own named test** (`test_divide[4-2-2.0]`), so a failure points at the exact input (self-locating). Design rule **one test = one question** — happy-path return-checks and a `pytest.raises` failure-path check live in *separate* tests, not crammed into one. **Fixtures** = dependency injection for tests (≈ Flutter `get_it`/`Provider`): a `@pytest.fixture` *builds* the object and the test **requests it by parameter name**; pytest injects it; default function scope = a fresh instance per test. The tell of a real fixture: setup (the data) moves INTO the fixture and the test body shrinks to pure intent.
+- **Reductions & the loss function (Day 16):** a **reduction** = whole-array IN, **one number OUT** (the opposite of element-wise) — `arr.mean()` / `arr.sum()` collapse an array to a scalar. Built **MSE** (Mean Squared Error) end-to-end vectorized, no loop: `((predictions - targets) ** 2).mean()` — **square** does two jobs: kills the sign (so +/− errors can't cancel to a fake "0 error") AND punishes big misses disproportionately (off-by-10 = 100 counts 4× an off-by-5 = 25); **mean** summarizes over all points → one "how wrong am I" number (19.75). Syntax-gap fix: a NumPy op already returns an `ndarray` — don't re-wrap in `np.array()`. **Gradient-descent intuition (3B1B ch.2):** loss is a landscape over the weight `w`; the **gradient** `dL/dw` = the slope (of the tangent line) under your feet; to cut the loss, step `w` **opposite** the slope by a small **learning rate** (`w = w − lr × dL/dw`), repeat — the blindfolded hiker walking downhill. Caught the **local-vs-global minimum** nuance. *Still fuzzy → reinforce Day 17:* the update step itself (step opposite, by lr, repeat).
 
 ---
 
@@ -199,7 +201,8 @@ Every phase is engineered so Flutter plugs in with **zero rework**, gated behind
 | Day 13 completed (testing as design: parametrize + first fixture; no new trophy) | +30 | 390 |
 | Day 14 — true rest day (new Sunday policy; not a skip, no penalty) | +0 | 390 |
 | Day 15 completed (NumPy first-contact: vectorized ReLU 167× over a loop + first uv lockfile; 🥉 Vectorized + 🥉 Clean Tree) | +40 | 430 |
-| **Current Total** | | **430** |
+| Day 16 completed (NumPy reductions → vectorized MSE loss + gradient-descent intuition; no new trophy) | +30 | 460 |
+| **Current Total** | | **460** |
 
 > **New XP philosophy (v2):** DONE = shipped + tested + deployed + baseline-beaten *out-earns* watching courses. Finishing a tutorial pays little; shipping a deployed, tested, baseline-beating artifact pays a lot. (Past XP is left as-is — no retroactive churn.)
 
