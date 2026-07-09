@@ -1,6 +1,6 @@
 # 🗺️ AI Mastery Roadmap — State File (v2)
 
-> Last updated: June 11, 2026
+> Last updated: July 9, 2026
 > This file is the single source of truth for roadmap progress.
 > Update this after every session. Paste into new Claude accounts to resume.
 > **v2 redesign (Jun 3, 2026):** rebalanced to a TRUE ~16-month critical path, deploy-from-Phase-1 reliability spine, gentler gamification. Past progress is untouched — only the path forward changed.
@@ -19,18 +19,20 @@
 
 ## 📊 Current Status
 
+> ⚠️ **PIVOT 2026-07-09 → build-first.** Day 23 flipped the plan from bottom-up fundamentals to **top-down building** (ship real AI-feeling apps NOW; backfill fundamentals just-in-time when a build demands them). 🥉 First Token popped (first LLM API call). The **Today** / **sub-goal** cells and the Phase archive below still describe the OLD bottom-up plan in places — a full rewrite is PENDING. Trust this banner + the Day 23 row over any stale cell.
+
 | Field | Value |
 |-------|-------|
-| **Current Day** | 19 |
+| **Current Day** | 24 |
 | **Rank** | E |
-| **XP** | 530 |
+| **XP** | 585 |
 | **Phase** | 1 |
-| **Today** | Day 19 — Friday (Jun 12 IST): plan at session start (web-search news first). **Day 18 ✅ DONE** — analytic gradient via the **chain rule**: replaced Day-17's finite-difference slope with the exact derivative `grad(w) = (2·x·errors).mean()` (the `2` = the exponent dropping out of `error²` via the power rule / square-strips; the `×x` = `d(w·x)/dw`; reuses the same `errors = pred − target`). Verified analytic == ε-slope (both −30 at w=0), wired into the 50-iter loop → converged `w → 1.9994`, gradient self-braked to ~0; two green asserts (`abs(grad(0)+30)<0.01`, tightened up from a loose range check that a wrong −10 would have passed, + `abs(w−2)<0.01`). **His key realization:** the update step needs only the *derivative*, not the loss value (`w = w − lr·grad`) — which is exactly why `loss()` could be deleted today but was essential Day 17 (Day-17's slope was built FROM loss calls); loss = scoreboard, gradient = steering wheel. ⚠️ Hit a real demotivation wall mid-session (dense StatQuest Σ/partial notation) → recovered by bridging the math back to his own code one "plank" at a time (see memory). **Next likely (finalize after news):** add a bias `pred = w·x + b` → first **two-parameter** descent (∂L/∂w *and* ∂L/∂b), the last bridge before a NumPy regression that beats a baseline (🥉 First Model). Pace it as ONE micro-step — possibly consolidate today's win first. |
-| **This week's sub-goal** | ✅ NumPy first-contact (Day 15) + ✅ vectorized MSE (Day 16) + ✅ hand-rolled gradient descent (Day 17, 🥉 Gradient) + ✅ analytic gradient via chain rule (Day 18, tested green; analytic-gradient micro-pop). 🔜 Next: add a bias term `pred = w·x + b` → two-parameter descent, building toward a NumPy regression that beats a baseline (🥉 First Model). |
-| **Streak** | 8 (Day 10–13 ✅ + Day 15–18 ✅; Sun Jun 7 / Day 14 = neutral rest) — climbing steadily |
-| **Streak-Freeze tokens** | 2 available (refill 1/month) |
+| **Today** | Day 23 — Tuesday (Jun 16 IST): plan at session start (web-search news first). **Day 22 ✅ DONE (re-entry)** — first day back after a 2-day miss (Day 19/20 frozen) + the Day-18 demotivation wall. Broke the "don't-feel-like-it" wall by shrinking the ask to *just open `day18.py` and hit run*; momentum then carried into a self-driven experiment that **mapped the entire learning-rate landscape** on the live `w`: lr **0.01** = crawl up to 2 from one side (never crosses) · lr **0.1** = lands on 2 to ~13 decimals with tiny inward bounces · lr **2.0** = strides overshoot the minimum and bounce **outward** → diverges (`w` sign-flips and explodes `~1e70 → 1e73` in 3 steps) → the Day-18 tolerance assert `abs(w−2)<0.01` **correctly tripped**, refusing to certify the diverged run. Cemented: too-small = crawl, just-right = land (the `1/curvature` perfect step = Newton, flagged Day 17), too-big = explode; and *a test is a tripwire, not decoration — an AssertionError on a blown-up run is the safety net working*. No new code file (pure exploration of existing `day18.py`); restored lr → green at close. The behavioral win — momentum, not willpower, then curiosity ("wait, why did it overshoot?") pulled the real learning. **Next (Day 23, finalize after news): the deferred ONE micro-step** — add a bias `pred = w·x + b`, hand-derive ∂L/∂b with the *same* chain rule (only the first local rate changes: `w·x`→`×x` becomes `+b`→`×1`, so b's gradient is *simpler* than w's), then first **two-parameter** descent (update `w` *and* `b` together) → the last bridge before a NumPy regression that beats a baseline (🥉 First Model). New file `phase1/week4/day23.py`. Pace as ONE step; bridge to his own code, not a notation-heavy video. |
+| **This week's sub-goal** | **Week 4 (Days 22–28):** re-entry Day 22 ✅ (learning-rate landscape mapped experimentally; streak rescued via 2 freeze tokens). 🔜 add a bias term `pred = w·x + b` → two-parameter descent (∂L/∂w + ∂L/∂b) → NumPy regression that beats a baseline (🥉 First Model). *Week 3 closed:* NumPy first-contact (15) → vectorized MSE (16) → hand-rolled GD (17, 🥉 Gradient) → analytic gradient via chain rule (18). |
+| **Streak** | 1 (Day 23 ✅ — fresh start). The prior 9-day streak broke over the ~1-month gap (Jun 15 → Jul 9; 0 freeze tokens left to absorb it). That's just the counter resetting — knowledge + Git history are fully intact. No guilt, no XP clawback: re-entry is a win, not a miss. |
+| **Streak-Freeze tokens** | 0 available (both spent on Day 19 + Day 20; refill 1/month → next ~mid-July). ⚠️ **Zero buffer** — the next unplanned weekday miss breaks the streak. |
 | **Start Date** | May 25, 2026 |
-| **Next trophy in sight** | 🥉 First Model (a NumPy regression beats the majority-class/mean baseline) — multi-day. Day 17 popped 🥉 Gradient; Day 18 hit the pre-planned **analytic-gradient micro-pop**. Keep the ≤3-day cadence — next micro-pop candidate: the bias/two-parameter build, or a first PR-to-self. |
+| **Next trophy in sight** | 🥉 First Model (a NumPy regression beats the majority-class/mean baseline) — multi-day. Day 17 popped 🥉 Gradient; Day 18 = analytic-gradient micro-pop; Day 22 = a consolidation re-entry (no pop — learning-rate intuition cemented). ≤3-day cadence resumes Day 23 — next micro-pop candidate: the bias/two-parameter build, or a first PR-to-self. |
 
 > Surface to yourself only the **next trophy + this week's sub-goal**. Phase-week ranges below are for planning, not your daily view (you think in days).
 
@@ -58,6 +60,11 @@
 | Day 16 | **NumPy reductions → vectorized MSE loss**: `errors ** 2` (scalar-broadcast) → `.mean()` collapses the whole error array to one number (19.75), zero loops; cleaned a redundant `np.array()` re-wrap (NumPy op in → `ndarray` out). + **gradient-descent intuition** (3B1B ch.2: blindfolded-hiker / cost surface; slope = `dL/dw`, step opposite it; caught local-vs-global minima). No new trophy — sets up 🥉 Gradient (Day 17). | ✅ Done (Tue Jun 9 IST) |
 | Day 17 | **Hand-rolled single-weight gradient descent**: model `pred = w·x`; finite-difference slope `(loss(w+ε) − loss(w)) / ε` (rise÷run, ε = a tiny *chosen* nudge); update `w = w − lr·slope` (minus × negative = step OPPOSITE the slope — the previously-fuzzy step, now solid); 50-iter loop converged `w: 0 → ~2`, loss `30.0 → ~0`, slope auto-flattened toward 0 (self-braking). Caught that w approaches the true weight asymptotically (never exactly) — fine, loss negligible; test asserts `abs(w−2) < 0.01`, never `== 2`. 🥉 Gradient | ✅ Done (Wed Jun 10 IST) |
 | Day 18 | **Analytic gradient via the chain rule**: replaced Day-17's finite-difference slope with the *exact* derivative `grad(w) = (2 * x * errors).mean()`, derived by hand (chain rule = multiply each step's *rate*: `w·x`→`×x`, `−target`→`×1`, `error²`→`×(2·error)` via the power rule/square-strips). Verified analytic == ε-slope (both −30 at w=0), ran the 50-iter loop → `w → 1.9994`, gradient self-braked to ~0. Caught that a *multiplier is a rate, not the line's output* (the `0.0` bug = used `pred` where the rate is `x`). Tightened a loose range assert into a real tolerance tripwire (`abs(grad(0)+30)<0.01`). Realized the update step needs only the derivative, not the loss value (so `loss()` was deletable today, unlike Day 17). Worked through a real mid-session demotivation wall. No new trophy (analytic-gradient micro-pop). | ✅ Done (Thu Jun 11 IST) |
+| Day 19 | **Frozen** — missed; first Streak-Freeze token spent → miss absorbed, streak preserved, no XP penalty | 🧊 Frozen (Fri Jun 12 IST) |
+| Day 20 | **Frozen** — missed; second Streak-Freeze token spent → absorbed, streak preserved | 🧊 Frozen (Sat Jun 13 IST) |
+| Day 21 | **Sunday — TRUE rest day** — mandatory zero-task rest; streak-neutral, no XP | ✅ Rest (Sun Jun 14 IST) |
+| Day 22 | **Re-entry: the learning-rate landscape** — re-ran Day-18 code green after a 3-day gap (read the convergence story off raw numbers cold), then turned a "don't-feel-like-it" low into a self-driven experiment mapping lr **too-small** (0.01 → crawl up from one side, never crosses 2) / **just-right** (0.1 → lands on 2 to ~13 dp) / **too-big** (2.0 → overshoots, bounces *outward*, diverges to `~1e73` → `nan`). The Day-18 tolerance assert `abs(w−2)<0.01` **correctly tripped** on the diverged run — a test caught a broken training loop. No new file (exploration of existing `day18.py`); restored lr → green. | ✅ Done (Mon Jun 15 IST) |
+| Day 23 | **Re-entry + PIVOT to build-first → 🥉 First Token**: after a ~1-month gap, diagnosed that the bottom-up grind wasn't motivating him; flipped to top-down build-first (ship AI apps now, backfill fundamentals just-in-time) — he chose it. Then shipped the first brick: a **working LLM API call from Python** (Google AI Studio free tier, `google-genai`, `gemini-3.5-flash`) — an AI answered his own code (`"AI learns from data, finds patterns, and makes predictions."`). Stored the API key as an env var (first secrets lesson; repo is public). First LLM API call = 🥉 First Token, a Phase-3 trophy pulled ~8 months forward. | ✅ Done (Thu Jul 9 IST) |
 
 ---
 
@@ -92,6 +99,7 @@
 - **Reductions & the loss function (Day 16):** a **reduction** = whole-array IN, **one number OUT** (the opposite of element-wise) — `arr.mean()` / `arr.sum()` collapse an array to a scalar. Built **MSE** (Mean Squared Error) end-to-end vectorized, no loop: `((predictions - targets) ** 2).mean()` — **square** does two jobs: kills the sign (so +/− errors can't cancel to a fake "0 error") AND punishes big misses disproportionately (off-by-10 = 100 counts 4× an off-by-5 = 25); **mean** summarizes over all points → one "how wrong am I" number (19.75). Syntax-gap fix: a NumPy op already returns an `ndarray` — don't re-wrap in `np.array()`. **Gradient-descent intuition (3B1B ch.2):** loss is a landscape over the weight `w`; the **gradient** `dL/dw` = the slope (of the tangent line) under your feet; to cut the loss, step `w` **opposite** the slope by a small **learning rate** (`w = w − lr × dL/dw`), repeat — the blindfolded hiker walking downhill. Caught the **local-vs-global minimum** nuance. *Still fuzzy → reinforce Day 17:* the update step itself (step opposite, by lr, repeat).
 - **Gradient descent, hand-built (Day 17):** the prediction is now a *function of the weight* (`pred = w·x`), so **learning = searching for the `w` that minimizes the loss**. **Numerical (finite-difference) gradient:** slope = **rise ÷ run** = `(loss(w+ε) − loss(w)) / ε`. **ε (epsilon)** = a *tiny nudge you choose* to probe the ground — NOT a fixed "smallest unit" (you can always go smaller); you **divide by ε** to convert "how much the loss fell" into a **rate** ("how *steeply* it falls", independent of how big the nudge was — same idea as speed = distance ÷ time); as ε→0 this rise÷run *is* the derivative `dL/dw`. **The update step (was fuzzy → now solid):** `w = w − learning_rate · slope`; minus × a *negative* slope = a step *toward* the valley = "opposite the slope". **learning_rate** = the step-size knob (too big overshoots/oscillates, too small crawls; the exact `1/curvature` would land in ONE step = Newton's method). **Convergence behaviour:** near the minimum the slope → 0, so steps **auto-shrink (self-brake)**; `w` approaches the true weight **asymptotically, never exactly** (the gap shrinks by a constant factor each step, Zeno-style — here `gap = 2·0.85ⁿ`) — and that's *fine* (loss becomes negligible), which is exactly why tests assert `abs(w−2) < tol`, **never** `== 2`; on noisy real data an exact "true weight" may not even exist (the best `w` still leaves error). **The payoff:** this five-move loop, scaled to billions of weights with autograd instead of finite differences, is *literally* how every modern model (Opus, Gemini, …) is trained.
 - **Analytic gradient via the chain rule (Day 18):** swapped the finite-difference *probe* for the *exact* derivative computed by hand. **The chain rule as "multiply the per-step ripple factors":** a tiny nudge to `w` ripples forward through each line of the loss, and each step multiplies the ripple by its *rate* — `pred = w*x` → `×x`, `pred − target` → `×1`, `error²` → `×(2·error)` (the **power rule** / square-strips: grow a square's side, its area grows by two strips → `2·side`, so the exponent 2 drops down). Multiply them: **`dL/dw = mean(2·x·errors)`**, reusing the same `errors = pred − target` from the loss. Verified analytic *equals* finite-difference (both **−30** at w=0; they differ only by the forward-ε bias ~7.5e-4). **A multiplier is a *rate* (out-wiggle per in-wiggle), NOT the line's output value** — the slip that printed `0.0` was using `pred` (the output, =0 at w=0) where the rate is `x`. **The update step needs only the gradient, not the loss value** (`w = w − lr·grad`): the loss is the *scoreboard* (watch it fall / decide when to stop), the gradient is the *steering wheel* — which is precisely why `loss()` was deletable on Day 18 but essential on Day 17 (whose slope was *built from* loss calls). **Testing-as-design carryover:** a loose range assert (`-30 <= grad(0) <= 0.01`) passes even for a wrong −10 → tightened to a tolerance tripwire (`abs(grad(0) − (−30)) < 0.01`), the same "within tol, never `==`" shape as the convergence test. This hand-derived chain rule, run through many layers by autograd, *is* backprop.
+- **Learning-rate landscape & tests-as-tripwires (Day 22, consolidation):** the **learning rate** sets the stride length down the loss valley, and the *whole* convergence behaviour pivots on it — watched all three regimes on the live `w`: **too small** (0.01) = baby steps, `w` crawls up to 2 **from one side and never crosses it**; **just right** (0.1) = lands on 2 to ~13 decimals with tiny *inward* bounces; **too big** (2.0) = strides **overshoot the minimum and bounce *outward*** — the gap grows each step (sign flips AND magnitude explodes: `~1e70 → 1e73` in three steps → `nan`), i.e. **divergence**. The boundary: a perfect step (`1/curvature`) lands in one move (Newton, flagged Day 17); below it = one-sided creep, above it = overshoot-inward, well above = explode. **Tests-as-tripwires (carryover from Day 12–13):** the Day-18 assert `abs(w−2)<0.01` **correctly failed** on the diverged run — a test's job is to refuse to certify a broken result; one that stayed silent while training blew up would be *lying*. So an `AssertionError` there = the safety net working, not the code breaking. **Meta-lesson (process):** the cure for "don't feel like it" is to shrink the ask until *starting* is trivial ("just open the file and hit run") — momentum, not willpower; then curiosity ("wait, why did it overshoot?") pulls the real learning.
 
 ---
 
@@ -208,7 +216,12 @@ Every phase is engineered so Flutter plugs in with **zero rework**, gated behind
 | Day 16 completed (NumPy reductions → vectorized MSE loss + gradient-descent intuition; no new trophy) | +30 | 460 |
 | Day 17 completed (hand-rolled single-weight gradient descent: finite-difference slope + `w = w − lr·slope`, 50-iter convergence to w≈2 / loss→~0; 🥉 Gradient) | +40 | 500 |
 | Day 18 completed (analytic gradient via chain rule: `grad = mean(2·x·errors)` replaces finite-diff slope, two green asserts incl. a tightened tolerance tripwire; analytic-gradient micro-pop, no new trophy) | +30 | 530 |
-| **Current Total** | | **530** |
+| Day 19 frozen (Streak-Freeze token spent — miss absorbed, streak preserved, no penalty) | +0 | 530 |
+| Day 20 frozen (second Streak-Freeze token spent — absorbed) | +0 | 530 |
+| Day 21 — Sunday true rest day (streak-neutral) | +0 | 530 |
+| Day 22 completed (re-entry after gap: re-ran Day-18 green + mapped the full learning-rate landscape experimentally — crawl/land/diverge — and saw the tolerance assert catch a diverged run; consolidation, no new artifact) | +15 | 545 |
+| Day 23 completed (re-entry + PIVOT to build-first; shipped first working LLM API call from Python via Gemini free tier — 🥉 First Token, a Phase-3 trophy pulled ~8 months forward) | +40 | 585 |
+| **Current Total** | | **585** |
 
 > **New XP philosophy (v2):** DONE = shipped + tested + deployed + baseline-beaten *out-earns* watching courses. Finishing a tutorial pays little; shipping a deployed, tested, baseline-beating artifact pays a lot. (Past XP is left as-is — no retroactive churn.)
 
@@ -229,7 +242,7 @@ HERE
 > Permanent once popped. Already-earned trophies carry over untouched. 🥉 Bronze · 🥈 Silver · 🥇 Gold · 🏆 PLATINUM = elite AI engineer + the job.
 > **Retired:** ~~🥉 Mathematician~~ (pure-math days removed).
 
-**Earned so far: 15**
+**Earned so far: 16**
 
 ### Phase 1 — Python · reliability spine · data
 - [x] 🥉 **Hello, Python** — Day 1
@@ -272,7 +285,7 @@ HERE
 - [ ] 🥈 **Backprop Boss** — implement backprop from scratch (optional enrichment)
 
 ### Phase 3 — LLMs · RAG · Evals · Agents · MCP
-- [ ] 🥉 **First Token** — first successful LLM API call
+- [x] 🥉 **First Token** — first successful LLM API call (Python via Google AI Studio free tier, `google-genai` + `gemini-3.5-flash`; an AI answered his own code) — Day 23, pulled ~8 months forward by the build-first pivot
 - [ ] 🥉 **Chunked** — first document split + embedded into pgvector
 - [ ] 🥇 **Observable Agent** — Langfuse trace on the first LLM call
 - [ ] 🥇 **Eval Architect** — golden set ≥20 Q&A (counter 0/20→20) + passing eval harness ("the boss-fight detector")
@@ -334,4 +347,4 @@ HERE
 
 Paste this entire file + the full system prompt into your first message, then say:
 
-> "I am resuming my AI roadmap. All context is above. Start Day 19."
+> "I am resuming my AI roadmap. All context is above. Start Day 24."
