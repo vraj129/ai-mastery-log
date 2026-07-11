@@ -1,24 +1,24 @@
 from google import genai
 
 
-def aiBot(user_input_str, prev_id=None):
+def aiBot(user_input_str, prev_id=None, ai_client=None, llm_model=None):
     try:
         if prev_id is None:
-            interaction = client.interactions.create(
-                model=llmModel,
+            interaction = ai_client.interactions.create(
+                model=llm_model,
                 input=user_input_str,
             )
         else:
-            interaction = client.interactions.create(
-                model=llmModel,
+            interaction = ai_client.interactions.create(
+                model=llm_model,
                 input=user_input_str,
                 previous_interaction_id=prev_id,
             )
         prev_id = interaction.id
-        return interaction.output_text,prev_id
+        return interaction.output_text, prev_id
     except Exception as e:
         print("(debug)", e)
-        return "Hit a rate limit / error — wait a sec and try again",prev_id
+        return "Hit a rate limit / error — wait a sec and try again", prev_id
 
 
 if __name__ == "__main__":
@@ -29,6 +29,6 @@ if __name__ == "__main__":
     prev_interaction_id = None
 
     while input_str != "exit":
-        ai_response,prev_interaction_id = aiBot(input_str, prev_interaction_id)
+        ai_response, prev_interaction_id = aiBot(input_str, prev_interaction_id, client, llmModel)
         print("Ai:", ai_response)
         input_str = input("Your Input: ")
