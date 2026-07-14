@@ -18,6 +18,9 @@ ENV/
 .DS_Store
 Thumbs.db
 
+# ---- Gradio local cache (flagged runs / temp files — not source) ----
+.gradio/
+
 # ---- Generated exercise scratch files ----
 # Output files created by running the day exercises (not source)
 phase1/week2/animals.txt
