@@ -30,7 +30,7 @@ def random_response(message, history, prev_id):
                 yield acc, new_id
 
     except Exception as e:
-        print("(debug)", e)
+        print("(debug)", e, flush=True)
         yield "Hit a rate limit / error — wait a sec and try again", prev_id
 
 
