@@ -3,30 +3,35 @@ from google import genai
 import os
 
 
-def aiBot(user_input_str, prev_id=None, ai_client=None, llm_model=None):
+def random_response(message, history, prev_id):
+    new_id = prev_id
+    acc = ""
+
     try:
         if prev_id is None:
-            interaction = ai_client.interactions.create(
-                model=llm_model,
-                input=user_input_str,
+            stream = client.interactions.create(
+                model=llmModel,
+                input=message,
+                stream=True
             )
         else:
-            interaction = ai_client.interactions.create(
-                model=llm_model,
-                input=user_input_str,
+            stream = client.interactions.create(
+                model=llmModel,
+                input=message,
                 previous_interaction_id=prev_id,
+                stream=True
             )
-        prev_id = interaction.id
-        return interaction.output_text, prev_id
+
+        for event in stream:
+            if event.event_type == "interaction.created":
+                new_id = event.interaction.id
+            elif event.event_type == "step.delta" and event.delta.type == "text":
+                acc += event.delta.text
+                yield acc, new_id
+
     except Exception as e:
-        print("(debug)", e)
-        return "Hit a rate limit / error — wait a sec and try again", prev_id
-
-
-def random_response(message, history, prev_id):
-    ai_response, prev_interaction_id = aiBot(user_input_str=message, prev_id=prev_id, ai_client=client,
-                                             llm_model=llmModel)
-    return ai_response, prev_interaction_id
+        print("(debug)", e, flush=True)
+        yield "Hit a rate limit / error — wait a sec and try again", prev_id
 
 
 if __name__ == "__main__":
